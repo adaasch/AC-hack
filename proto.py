@@ -38,12 +38,35 @@ def parse_nibble(byte, mask, desc: dict):
             return v
 
 
+PRETTY = {
+    "cool": "Cooling",
+    "vent": "Ventilation",
+    "dehum": "dehum",
+    "heat": "Heating",
+    "auto": "Auto",
+    "normal": "Normal",
+    "health": "Health",
+    "turbo": "Turbo",
+    "low noise": "Low Noise",
+    "cmd": "Command",
+    "len": "Length",
+    "pwr": "Power",
+    "eco": "Eco",
+    "disp": "Display",
+    "buzz": "Buzzer",
+    "mode": "Mode",
+    "state": "State",
+    "temp": "Set Temperature °C",
+    "fan": "Fan Speed",
+    "Vanes": "vanes"
+}
+
 AC_MODE = {
-    0x01: "Cooling",
-    0x02: "Ventilation",
-    0x03: "Dehumification",
-    0x04: "Heating",
-    0x05: "Auto"
+    0x01: "cool",
+    0x02: "fan",
+    0x03: "dehum",
+    0x04: "heat",
+    0x05: "auto"
 }
 
 AC_STATE = {
@@ -71,16 +94,18 @@ VANE_MODE = {0x20: "horizontal move", 0x40: "vertical move"}
 
 AC_RESP = {
     4: lambda buf, idx: {
-        "State": get_flag(buf[idx], AC_STATE),
-        "Mode": parse_nibble(buf[idx], 0x0f, AC_MODE)
+        "state": get_flag(buf[idx], AC_STATE),
+        "mode": parse_nibble(buf[idx], 0x0f, AC_MODE),
+        "pwr": 0x10 & buf[idx] == 0x10,
+        "eco": 0x40 & buf[idx] == 0x40,
+        "turbo": 0x80 & buf[idx] == 0x80,
     },
     5: lambda buf, idx: {
-        "Set Temp °C":
-        (buf[idx] & 0xf) + 16 + int(buf[idx + 1] & 0x2 == 0x2) * .5,
-        "Fan Speed": parse_nibble(buf[idx], 0xf0, FAN_SPEED)
+        "temp": (buf[idx] & 0xf) + 16 + int(buf[idx + 1] & 0x2 == 0x2) * .5,
+        "fan": parse_nibble(buf[idx], 0xf0, FAN_SPEED)
     },
     6: lambda buf, idx: {
-        "Vanes": get_flag(buf[idx], VANE_MODE)
+        "vanes": get_flag(buf[idx], VANE_MODE)
     }
 }
 
@@ -107,7 +132,7 @@ PROTOCOL = {
         },
         4:
         lambda buf, idx: {
-            "Len": (buf[idx], buf[idx] == len(buf) - 6)
+            "Length": (buf[idx], buf[idx] == len(buf) - 6)
         },
         3:
         lambda buf, idx: parse_packet(buf[idx:-1], COMMAND
@@ -140,7 +165,7 @@ SET_AC_MODE = {
     "heat": 0x01,
     "dehum": 0x02,
     "cool": 0x03,
-    "fan": 0x07,
+    "vent": 0x07,
     "auto": 0x08
 }
 
