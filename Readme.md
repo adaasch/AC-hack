@@ -1,24 +1,33 @@
 # Hacking AC Wifi Protocol
 
-- Many AC come with a Wifi module to connect them to the (chinese) cloud and control them from everywhere.
-- Some makes are Kesser, but parts have TCL markings. I suppose a lot of other makes have identical hardware.
+- Many ACs come with a Wifi module to connect them to the (chinese) cloud and control them from everywhere.
+- Some makes are Kesser, but parts have TCL markings. I suppose a lot of other makes/rebrands have identical hardware.
 - This is an approach to reverse engineer the protocol used for control from the cloud.
 - I was successful to reassemble the whole functionality and liberating the AC from the cloud.
 
 ## The module
 
+- Spare Part Number: 32001-000140
 - [Tuya module](https://developer.tuya.com/en/docs/iot/wifie1smodule?id=K9605thnvg3e7)
 - Connects to Tuya Cloud / Controlled via Tuya App
 - It is connected via UART to the main board
+- Brands using this module/protocol
+  - Kesser
+  - TCL
+  - Pioneer
+  - DAIZUKI
+  - ... -> Tell me
 - Pics
   - [Connector on the main board](doc/connector_main_board.jpg)
+  - [Diagramm of main board](doc/diagramm_main_board.jpg)
   - [Wifi board top](doc/board_top.jpg)
   - [Wifi board bottom](doc/board_bottom.jpg)
+  - [Housing](doc/module_in_housing.jpg)
 
 ## Reverse engineering the protocol
 
 - Logic analyzer -> UART, Baudrate 9600, Bits 8, Parity Even, Stop-Bits 1 -> 9600 8E1
-- Reverse engineering the protocol by using the original app and the IR remote control.
+- Reverse engineering of the protocol was done by using the original app and the IR remote control.
 
 ## The protocol
 
