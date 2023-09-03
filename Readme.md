@@ -38,9 +38,9 @@
 | **Description**       | Preamble | Response Flag                | Request Flag                     | Command                                                                 | Payload Length     | Payload      | Checksum              |
 | **Values**            | 0xBB     | 0x01 if sent by AC else 0x00 | 0x01 if sent by module else 0x00 | 0x03: Set <br> 0x04: Get <br> 0x05: Display <br> 0x09: ?? <br> 0x0A: ?? | Depends on command | See commands | CRC8 with Polynom = 1 |
 
-Example: `BB 00 01 04 02 01 00 BD`
+The response command id equals the request command id.
 
--- Response cmd = req cmdid
+Example: `BB 00 01 04 02 01 00 BD`
 
 ### Commands
 
