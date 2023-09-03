@@ -133,7 +133,9 @@ Example: `BB 01 00 0A 2D 04 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0
 ## Adding to home automation
 
 - Using [Tasmota](https://github.com/arendst/Tasmota)
-  - Console: `SerialConfig 8E1`, `Baudrate 9600`
+  - Console:
+    - Deactivate Tasmota log on serial port: `SerialLog 0`  
+    - Config serial port: `SerialConfig 8E1`, `Baudrate 9600`
   - ![Alt text](doc/Tasmota-module-config.png)
 - [MQTT Bridge](ac_control.py)
 - MQTT dashboard (tbd)
