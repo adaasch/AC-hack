@@ -132,7 +132,11 @@ Example: `BB 01 00 0A 2D 04 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0
 
 ## Adding to home automation
 
-- Using [Tasmota](https://github.com/arendst/Tasmota)
+### ESPHome
+
+https://gitlab.com/adaasch/ac-esphome
+
+### Using [Tasmota](https://github.com/arendst/Tasmota)
   - Console:
     - Deactivate Tasmota log on serial port: `SerialLog 0`  
     - Config serial port: `SerialConfig 8E1`, `Baudrate 9600`
